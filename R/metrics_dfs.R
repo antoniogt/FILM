@@ -1,12 +1,12 @@
-#' Title
+#' Function to get the metric for all dfs created on FILM methodology.
 #'
-#' @param models
-#' @param formula
-#' @param model_names
-#' @param val
-#' @param metrics
+#' @param models: List of models
+#' @param formula: Formula to test. Style: 'target_variable ~ .'
+#' @param model_names: Model names to identify if it is an IPIP method.
+#' @param val: List of validation datasets.
+#' @param metrics: Vector of the wanted metric values.
 #'
-#' @return
+#' @return Named vector of metric values.
 #' @export
 #'
 #' @examples

@@ -1,24 +1,24 @@
-#' Title
+#' FILM function for doing the entire methodology and get the best model accordin
 #'
-#' @param dataset
-#' @param formula
-#' @param df_aux
-#' @param IAAs
-#' @param models
-#' @param hiperparametros
-#' @param metrics
-#' @param cv
-#' @param prop_min
-#' @param prop_max
-#' @param tC
-#' @param metric_max
-#' @param num.trees
+#' @param dataset: Dataset of the binary classification problem
+#' @param formula: Style: 'target_variable ~ .'
+#' @param df_aux: Number of auxiliar datasets with different minority class function
+#' @param IAAs: Imbalance Aware Approaches such as 'SMOTE', 'IPIP', 'ROSE', 'Upsample' and 'Downsample'
+#' @param models: ML techniques to be trained after using some IAA: 'glm' or 'ranger'.
+#' @param hyperparameters: Hiperparameters for 'ranger' method.
+#' @param metrics: Vector of metrics to get in order to calculate UIC metric. Possible values: 'ACCURACY' ,'SENS', 'SPEC', 'PPV', 'NPV', 'KAPPA' , 'BAL_ACC',  'F1', 'AUC', 'PR', 'MCC', 'GEOM'
+#' @param cv: Number K of folds for a K-Folds Cross Validation.
+#' @param prop_min: Minimum of proportion of the minority class for the resample auxiliar datasets.
+#' @param prop_max: Maximum of proportion of the minority class for the resample auxiliar datasets.
+#' @param tC: Train Control of caret train() function.
+#' @param metric_max: Metric from 'metrics' to maximize when training ML techniques.
+#' @param num.trees: Number of trees of the 'ranger' caret method.
 #'
-#' @return
+#' @return UIC values, best model, all models
 #' @export
 #'
 #' @examples
-FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),models=c("ranger","glm"), hiperparametros=NULL, metrics=c("ACCURACY","KAPPA","F1"), cv=5, prop_min =0.05, prop_max = 0.4, tC=trainControl( summaryFunction = FILM::metrics,  allowParallel = TRUE,  classProbs = TRUE),metric_max="KAPPA",num.trees=200){
+FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),models=c("ranger","glm"), hyperparameters=NULL, metrics=c("ACCURACY","KAPPA","F1"), cv=5, prop_min =0.05, prop_max = 0.4, tC=trainControl( summaryFunction = FILM::metrics,  allowParallel = TRUE,  classProbs = TRUE),metric_max="KAPPA",num.trees=200){
 
   class<- gsub(" ", "", unlist(strsplit(format(formula), split = "~"))[1])
   dataset[ ,class] <- as.factor(dataset[ ,class])
@@ -107,7 +107,7 @@ for(df in 1:length(subdatasets)){
                  metric = metric_max,
                  maximize = T,
                  trControl = tC,
-                 tuneGrid = hiperparametros
+                 tuneGrid = hyperparameters
         )
         models_trained<-c(models_trained,m)
         names_models<-c(names_models,"ROSE_RF")
@@ -142,7 +142,7 @@ for(df in 1:length(subdatasets)){
           metric = metric_max,
           maximize = T,
           trControl = tC,
-          tuneGrid = hiperparametros
+          tuneGrid = hyperparameters
         )
         models_trained<-c(models_trained,m)
         names_models<-c(names_models,"SMOTE_RF")
@@ -201,7 +201,7 @@ for(df in 1:length(subdatasets)){
                   metric = metric_max,
                   maximize = T,
                   trControl = tC,
-                  tuneGrid = hiperparametros
+                  tuneGrid = hyperparameters
         )
         models_trained<-c(models_trained,m)
         names_models<-c(names_models,"Upsample_RF")
@@ -236,7 +236,7 @@ for(df in 1:length(subdatasets)){
                   metric = metric_max,
                   maximize = T,
                   trControl = tC,
-                  tuneGrid = hiperparametros
+                  tuneGrid = hyperparameters
         )
         models_trained<-c(models_trained,m)
         names_models<-c(names_models,"Downsample_RF")

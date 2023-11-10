@@ -2,13 +2,11 @@ Package: FILM
 Title: Framework for Imbalanced Learning Machines
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Antonio", "Guillén-Teruel", , "a.guillenteruel@um.es", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: FILM (Framework for Imbalanced Learning Machines) is a package for computing the new UIC metric to get the less biased model with respect to the proportion of the minority class of a certain dataset by training several models using artificial training datasets obtained by resampling the original dataset and varying their proportion of the minority class for each resampled training set. Main function 'FILM()' does the full methodology. Logistic regression and random forest models can be trained after applying some Imbalance Aware Approaches (IAAs) such as IPIP, SMOTE, ROSE, Oversampling and Downsampling. IPIP is a new hybrid ensemble-based technique that can be used for dealing with high imbalance on the target variable for a two-classes classification problem.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-URL: https://github.com/antoniogt/FILM
-BugReports: https://github.com/antoniogt/FILM/issues
