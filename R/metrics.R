@@ -1,10 +1,10 @@
-#' Title
+#' Metrics
 #'
-#' @param data
+#' @param data: Data frame with the original values in column 'obs', predictions in 'pred' column, prediction
 #' @param lev
 #' @param model
 #'
-#' @return
+#' @return Metric values for the given predictions and original values.
 #' @export
 #'
 #' @examples
