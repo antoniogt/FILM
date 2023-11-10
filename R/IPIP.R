@@ -33,9 +33,9 @@ IPIP<- function(formula, dataset, val=NULL, pmin=0.45, bs=ceiling(log(.01)/(log(
     }
 
     prop.maj<-1-pmin
-    max_set <- train %>% filter(class == levels(train[,class])[which.max(train[,class])])
+    max_set <- train %>% filter(class == levels(train[,class])[which.max(table(train[,class]))])
     nrow(max_set)
-    min_set <- train %>% filter(class == levels(train[,class])[which.min(train[,class])])
+    min_set <- train %>% filter(class == levels(train[,class])[which.min(table(train[,class]))])
     nrow(min_set)
 
     dfs <- list()
@@ -56,8 +56,8 @@ IPIP<- function(formula, dataset, val=NULL, pmin=0.45, bs=ceiling(log(.01)/(log(
 
       while(length(Ek)<=bE && i<mt(length(Ek))){
         ind.train <- c(
-          sample(which(df[,class] == levels(train[,class])[which.max(train[,class])]), size = round(nrow(train[which(train[,class] == levels(train[,class])[which.min(train[,class])]),])*0.75), replace = TRUE),
-          sample(which(df[,class] == levels(train[,class])[which.min(train[,class])]), size = round(nrow(train[which(daatset[,class] == levels(train[,class])[which.min(train[,class])]),])*0.75), replace = TRUE)
+          sample(which(df[,class] == levels(train[,class])[which.max(table(train[,class]))]), size = round(nrow(train[which(train[,class] == levels(train[,class])[which.min(train[,class])]),])*0.75), replace = TRUE),
+          sample(which(df[,class] == levels(train[,class])[which.min(table(train[,class]))]), size = round(nrow(train[which(daatset[,class] == levels(train[,class])[which.min(train[,class])]),])*0.75), replace = TRUE)
         )
 
         if(model== "glm"){
@@ -89,7 +89,7 @@ IPIP<- function(formula, dataset, val=NULL, pmin=0.45, bs=ceiling(log(.01)/(log(
             u <- -Inf
             names(u) <- metric_max
             u
-          } else FILM::metrics(data.frame(
+          } else FILM::metric_probs(data.frame(
             obs = test[,class],
             pred = as.factor(FILM::predict_film(Ek, test[-which(colnames(test)==class)],test[,class],type="class")),
             prob = FILM::predict_film(Ek, test[-which(colnames(test)==class)],test[,class],type="prob")
@@ -97,7 +97,7 @@ IPIP<- function(formula, dataset, val=NULL, pmin=0.45, bs=ceiling(log(.01)/(log(
 
         Ek[[length(Ek)+1]] <- m
 
-        metricas.ensemble.2 <- FILM::metrics(data.frame(
+        metricas.ensemble.2 <- FILM::metric_probs(data.frame(
           obs = test[,class],
           pred= as.factor(FILM::predict_film(Ek, test[-which(colnames(test)==class)],test[,class],type="class")),
           prob= FILM::predict_film(Ek, test[-which(colnames(test)==class)],test[,class],type="prob")
