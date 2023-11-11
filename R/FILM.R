@@ -261,12 +261,12 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
 
     for(v in 1:(length(models)*length(IAAs))){
 
-      list_metrics_total[[length(list_metrics_total)+1]]<-(FILM::metrics_dfs(models=models_trained[v+((length(models)*length(IAAs)))*(0:(cv-1))], formula =formula,model_names=unique(names_models[v+((length(models)*length(IAAs)))*(0:(cv-1))]), val=datasets_val,metrics=metrics)) #Sirve para hacer plots Jose Adrian
-      sum<-list_metrics_total[[(v+((length(models)*length(IAAs)))*(0:(cv-1)))*df]][[1]]
-      for(l in 1:(length(list_metrics_total[[(v+((length(models)*length(IAAs)))*(0:(cv-1)))*df]])-1)){
-        sum<-sum+list_metrics_total[[(v+((length(models)*length(IAAs)))*(0:(cv-1)))*df]][[l]]
+      list_metrics_total<-append(list_metrics_total,FILM::metrics_dfs(models=models_trained[v+((length(models)*length(IAAs)))*(0:(cv-1))], formula =formula,model_names=unique(names_models[v+((length(models)*length(IAAs)))*(0:(cv-1))]), val=datasets_val,metrics=metrics)) #Sirve para hacer plots Jose Adrian
+      sum<-list_metrics_total[[length(list_metrics_total)-cv+1]]
+      for(l in (length(list_metrics_total)-cv+2):(length(list_metrics_total))){
+        sum<-sum+list_metrics_total[[l]]
       }
-      sum<-sum/length(list_metrics_total[[(v+((length(models)*length(IAAs)))*(0:(cv-1)))*df]])
+      sum<-sum/cv
       list_accumulative_metrics[[length(list_accumulative_metrics)+1]]<-(sum) # For UIC
     }
 
@@ -274,11 +274,11 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
   UIC_values<-c()
 
   for(i in 1:(length(models)*length(IAAs))){
-    UIC_values<-c(UIC_values,FILM::UIC(metrics=metrics,metric_values=as.double(unlist(list_accumulative_metrics[i+(length(models)*length(IAAs))*(0:(df_aux-1))])[which(names(unlist(list_accumulative_metrics[i+(length(models)*length(IAAs))*(0:(df_aux-1))])) %in% j)]),props=props))
+    UIC_values<-c(UIC_values,FILM::UIC(metrics=metrics,metric_values=list_accumulative_metrics[i+(length(models)*length(IAAs))*(0:(df_aux))],props=props))
   }
 
   df_results<-(data.frame(model_names=names_models[1:(length(models)*length(IAAs))],UIC=UIC_values))
 
-  return(uic_results=df_results,best_model=models_trained[[which(UIC_values==max(UIC_values))]],all_models=models_trained[1:(length(models)*length(IAAs))])
+  return(list(uic_results=df_results,best_model=models_trained[[which(UIC_values==max(UIC_values))]],all_models=models_trained[1:(length(models)*length(IAAs))]))
 
 }

@@ -22,7 +22,7 @@ metrics_dfs <- function(models, formula ,model_names, val,metrics){
       obs = as.factor(val[[i]][,class]),
       pred= factor(FILM::predict_ipip(models[[i]], val[[i]][-which(colnames(val[[i]])==class)],val[[i]][,class],type="class"),labels=levels(val[[i]][,class])),
       prob= FILM::predict_ipip(models[[i]], val[[i]][-which(colnames(val[[i]])==class)],val[[i]][,class],type="prob"),
-      obs.prob = as.numeric(ifelse(val[[i]][, class] == max, 1, 0))
+      obs.prob = as.numeric(ifelse(val[[i]][, class] == max, 1, 0)) # Arreglar lo de max por el nombre del level de la clase mayoritaria
     ))[metrics]
     }
   }
