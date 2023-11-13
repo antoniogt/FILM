@@ -18,7 +18,8 @@ FILM(
   tC = trainControl(summaryFunction = FILM::metrics, allowParallel = TRUE, classProbs =
     TRUE),
   metric_max = "KAPPA",
-  num.trees = 200
+  num.trees = 200,
+  return.uic = T
 )
 }
 \arguments{

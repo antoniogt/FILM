@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),models=c("ranger","glm"), hyperparameters=NULL, metrics=c("ACCURACY","KAPPA","F1"), cv=5, prop_min =0.05, prop_max = 0.4, tC=trainControl( summaryFunction = FILM::metrics,  allowParallel = TRUE,  classProbs = TRUE),metric_max="KAPPA",num.trees=200){
+FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),models=c("ranger","glm"), hyperparameters=NULL, metrics=c("ACCURACY","KAPPA","F1"), cv=5, prop_min =0.05, prop_max = 0.4, tC=trainControl( summaryFunction = FILM::metrics,  allowParallel = TRUE,  classProbs = TRUE),metric_max="KAPPA",num.trees=200,return.uic=T){
 
   class<- gsub(" ", "", unlist(strsplit(format(formula), split = "~"))[1])
   dataset[ ,class] <- as.factor(dataset[ ,class])
@@ -271,6 +271,11 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
     }
 
   }
+  if(return.uic==T){
+    return(list(metrics=metrics, metric_values=list_accumulative_metrics, props=props,all_metrics=list_metrics_total))
+
+  }else{
+
   UIC_values<-c()
 
   for(i in 1:(length(models)*length(IAAs))){
@@ -280,5 +285,5 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
   df_results<-(data.frame(model_names=names_models[1:(length(models)*length(IAAs))],UIC=UIC_values))
 
   return(list(uic_results=df_results,best_model=models_trained[[which(UIC_values==max(UIC_values))]],all_models=models_trained[1:(length(models)*length(IAAs))]))
-
+  }
 }
