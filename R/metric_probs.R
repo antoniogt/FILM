@@ -1,10 +1,10 @@
-#' Title
+#' Metrics
 #'
 #' @param data
 #' @param lev
 #' @param model
 #'
-#' @return
+#' @return list of metrics
 #' @export
 #'
 #' @examples
