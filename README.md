@@ -38,9 +38,9 @@ First of all we load our dataset. A sample dataset has been provided in the 'dat
 
 ``` r
 # Load the data and prepare it to apply FILM() function
-data<-as.data.frame(readRDS(system.file("data", "phoneme.csv", package = "FILM")))
+data<-as.data.frame(read_csv(system.file("data", "phoneme.csv", package = "FILM"),col_names=FALSE))
 data$X6<-as.factor(data$X6)
-levels(phoneme$X6)<- c("one","two")
+levels(data$X6)<- c("one","two")
 
 ```
 
