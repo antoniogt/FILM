@@ -271,7 +271,7 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
     }
 
   }
-  if(return.uic==T){
+  if(return.uic==F){
     return(list(metrics=metrics, metric_values=list_accumulative_metrics, props=props,all_metrics=list_metrics_total))
 
   }else{
