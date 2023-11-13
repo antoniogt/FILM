@@ -2,13 +2,16 @@
 % Please edit documentation in R/metric_probs.R
 \name{metric_probs}
 \alias{metric_probs}
-\title{Title}
+\title{Metrics}
 \usage{
 metric_probs(data, lev = levels(as.factor(data$obs)), model = NULL)
 }
 \arguments{
 \item{model}{}
 }
+\value{
+list of metrics
+}
 \description{
-Title
+Metrics
 }
