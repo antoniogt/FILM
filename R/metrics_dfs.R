@@ -1,6 +1,6 @@
 #' Function to get the metric for all dfs created on FILM methodology.
 #'
-#' @param models: List of models
+#' @param ml: List of models
 #' @param formula: Formula to test. Style: 'target_variable ~ .'
 #' @param model_names: Model names to identify if it is an IPIP method.
 #' @param val: List of validation datasets.
@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-metrics_dfs <- function(models, formula ,model_names, val,metrics){
+metrics_dfs <- function(ml, formula ,model_names, val,metrics){
 
   max<-levels(val[[1]][,class])[which.max(table(val[[1]][,class]))]
 
@@ -22,8 +22,8 @@ metrics_dfs <- function(models, formula ,model_names, val,metrics){
     for(i in 1:length(val)){
       list_metrics[[i]] <- FILM::metric_probs(data.frame(
         obs = as.factor(val[[i]][,class]),
-        pred= factor(FILM::predict_ipip(models[[i]], val[[i]][-which(colnames(val[[i]])==class)],val[[i]][,class],type="class"),labels=levels(val[[i]][,class])),
-        prob= FILM::predict_ipip(models[[i]], val[[i]][-which(colnames(val[[i]])==class)],val[[i]][,class],type="prob"),
+        pred= factor(FILM::predict_ipip(ml[[i]], val[[i]][-which(colnames(val[[i]])==class)],val[[i]][,class],type="class"),labels=levels(val[[i]][,class])),
+        prob= FILM::predict_ipip(ml[[i]], val[[i]][-which(colnames(val[[i]])==class)],val[[i]][,class],type="prob"),
         obs.prob = as.numeric(ifelse(val[[i]][, class] == max, 1, 0)) # Arreglar lo de max por el nombre del level de la clase mayoritaria
       ))[metrics]
     }
@@ -32,8 +32,8 @@ metrics_dfs <- function(models, formula ,model_names, val,metrics){
     for(i in 1:length(val)){
       list_metrics[[i]] <- FILM::metric_probs(data.frame(
         obs = as.factor(val[[i]][,class]),
-        pred= factor(predict(models[[i]], val[[i]][-which(colnames(val[[i]])==class)]),labels=levels(val[[i]][,class])),
-        prob= predict(models[[i]], val[[i]][-which(colnames(val[[i]])==class)],type = "prob")[,max],
+        pred= factor(predict(ml[[i]], val[[i]][-which(colnames(val[[i]])==class)]),labels=levels(val[[i]][,class])),
+        prob= predict(ml[[i]], val[[i]][-which(colnames(val[[i]])==class)],type = "prob")[,max],
         obs.prob = as.numeric(ifelse(val[[i]][, class] == max, 1, 0))
       ))[metrics]
     }

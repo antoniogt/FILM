@@ -4,10 +4,10 @@
 \alias{metrics_dfs}
 \title{Function to get the metric for all dfs created on FILM methodology.}
 \usage{
-metrics_dfs(models, formula, model_names, val, metrics)
+metrics_dfs(ml, formula, model_names, val, metrics)
 }
 \arguments{
-\item{models:}{List of models}
+\item{ml:}{List of models}
 
 \item{formula:}{Formula to test. Style: 'target_variable ~ .'}
 
