@@ -18,7 +18,7 @@ metrics_dfs <- function(ml, formula ,model_names, val,metrics){
 
   class<- gsub(" ", "", unlist(strsplit(format(formula), split = "~"))[1])
 
-  if(model_names %in% c("IPIP_RF","IPIP_RLOG")){
+  if(any(model_names %in% c("IPIP_RF","IPIP_RLOG"))){
     for(i in 1:length(val)){
       list_metrics[[i]] <- FILM::metric_probs(data.frame(
         obs = as.factor(val[[i]][,class]),
