@@ -92,7 +92,8 @@ IPIP<- function(formula, dataset, val=NULL, pmin=0.45, bs=NULL, bE= NULL, model=
         } else FILM::metric_probs(data.frame(
           obs = test[,class],
           pred = as.factor(FILM::predict_film(Ek, test[-which(colnames(test)==class)],test[,class],type="class")),
-          prob = FILM::predict_film(Ek, test[-which(colnames(test)==class)],test[,class],type="prob")
+          prob = FILM::predict_film(Ek, test[-which(colnames(test)==class)],test[,class],type="prob"),
+          obs.prob= as.numeric(dplyr::recode(as.factor(test[,class]), !!levels(train[,class])[which.max(table(train[,class]))] := 1, !!levels(train[,class])[which.min(table(train[,class]))] := 0))
         ))
       
       Ek[[length(Ek)+1]] <- m
