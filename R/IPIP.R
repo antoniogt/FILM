@@ -33,10 +33,8 @@ IPIP<- function(formula, dataset, val=NULL, pmin=0.45, bs=ceiling(log(.01)/(log(
     }
 
     prop.maj<-1-pmin
-    max_set <- train %>% filter(class == levels(train[,class])[which.max(table(train[,class]))])
-    nrow(max_set)
-    min_set <- train %>% filter(class == levels(train[,class])[which.min(table(train[,class]))])
-    nrow(min_set)
+    max_set <- train %>% filter(train[[class]] == levels(train[,class])[which.max(table(train[,class]))])
+    min_set <-  train %>% filter(train[[class]] == levels(train[,class])[which.min(table(train[,class]))])
 
     dfs <- list()
 
