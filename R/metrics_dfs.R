@@ -12,11 +12,11 @@
 #' @examples
 metrics_dfs <- function(ml, formula ,model_names, val,metrics){
 
+  class<- gsub(" ", "", unlist(strsplit(format(formula), split = "~"))[1])
+
   max<-levels(val[[1]][,class])[which.max(table(val[[1]][,class]))]
 
   list_metrics <- list()
-
-  class<- gsub(" ", "", unlist(strsplit(format(formula), split = "~"))[1])
 
   if(any(model_names %in% c("IPIP_RF","IPIP_RLOG"))){
     for(i in 1:length(val)){
@@ -40,4 +40,3 @@ metrics_dfs <- function(ml, formula ,model_names, val,metrics){
   }
   return(list_metrics)
 }
-
