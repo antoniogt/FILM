@@ -84,6 +84,6 @@ and we get a plot like the following:
 
 ## About
 
-This package has developed by **Antonio Guillén Teruel** as part of his PhD mentored by professor **Juan Antonio Botía Blaya**.
+This package has developed by **Antonio Guillén Teruel** as part of his PhD mentored by professor **Juan Antonio Botía Blaya** and co-mentored by professor **José Tomás Palma Méndez**.
 
 Authors: Antonio Guillén Teruel, Marcos Caracena, Jose A. Pardo, Fernando de-la-Gándara, José Palma, Juan A. Botía

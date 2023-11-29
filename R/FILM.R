@@ -164,7 +164,7 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
 
       }
 
-      if("IPIP" %in% models){
+      if("IPIP" %in% IAAs){
         if("ranger" %in% models){
 
           m<-FILM::IPIP(formula=formula,dataset=datasets[[i]],val=datasets_val[[i]],model="ranger")
