@@ -17,16 +17,16 @@ library(FILM)
 
 You need the following R packages:
 
-readr
-data.table
-ggplot2
-stats
-DataExplorer
-MLmetrics
-DMwR
-ROSE
-dplyr
-caret
+- readr
+- data.table
+- ggplot2
+- stats
+- DataExplorer
+- MLmetrics
+- DMwR
+- ROSE
+- dplyr
+- caret
 
 ## Uses of FILM
 
