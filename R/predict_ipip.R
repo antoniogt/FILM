@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-predict_ipip<- function(ensemble, x, y, q = 0.5){
+predict_ipip<- function(ensemble, x, y, q = 0.5,type="class"){
 
   min<- levels(y)[which.min(table(y))]
   max<- levels(y)[which.max(table(y))]
