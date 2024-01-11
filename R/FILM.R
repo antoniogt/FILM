@@ -276,6 +276,26 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
 
   }else{
 
+    agree_dis<-list()
+    for(i in 1:(length(models)*length(IAAs))){
+      sequence<-c()
+      start <- 1+5*(i-1)
+      end <- 1+5*(i-1)+cv-1
+      skip <- length(models)*length(IAAs)*cv
+      repeats <- df_aux+1
+
+      for (j in 1:repeats) {
+        sequence<-c(sequence,seq(start, end, by = 1))
+        start <- start + skip
+        end <- end + skip
+      }
+
+      interv <- lapply(seq(1, length(sequence), by = 5), function(k) sequence[k:(k+4)])
+
+      agree_dis[[i]] <- lapply(interv, function(interv) list_metrics_total[interv])
+      
+      }
+    
     UIC_values<-c()
 
     for(i in 1:(length(models)*length(IAAs))){
@@ -284,6 +304,6 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
 
     df_results<-(data.frame(model_names=names_models[1:(length(models)*length(IAAs))],UIC=UIC_values))
 
-    return(list(uic_results=df_results,best_model=models_trained[[which(UIC_values==max(UIC_values))]],all_models=models_trained[1:(length(models)*length(IAAs))]))
+    return(list(uic_results=df_results,best_model=models_trained[[which(UIC_values==max(UIC_values))]],all_models=models_trained[1:(length(models)*length(IAAs))],agreementDisagreement=FILM::agreementDisagreement(all_metrics=agree_dis,metric_names=metrics,model_names=model_names[1:(length(models)*length(IAAs))]))
   }
 }
