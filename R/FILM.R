@@ -304,7 +304,6 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
 
     df_results<-(data.frame(model_names=names_models[1:(length(models)*length(IAAs))],UIC=UIC_values))
 
-    return(list(uic_results=df_results,best_model=models_trained[[which(UIC_values==max(UIC_values))]],all_models=models_trained[1:(length(models)*length(IAAs))],agreementDisagreement=FILM::agreementDisagreement(all_metrics=agree_dis,metric_names=metrics,model_names=model_names[1:(length(models)*length(IAAs))]))
+    return(list(uic_results=df_results,best_model=models_trained[[which(UIC_values==max(UIC_values))]],all_models=models_trained[1:(length(models)*length(IAAs))],agreementDisagreement=FILM::agreementDisagreement(all_metrics=agree_dis,metric_names=metrics,model_names=model_names[1:(length(models)*length(IAAs))])))
   }
-}
 }
