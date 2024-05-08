@@ -31,6 +31,16 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
 
   p0<-prop.table(table(dataset[,class]))[min]
   props<-c()
+
+    if(p0 < 0.05){
+    
+    for(i in 1:(df_aux)){
+  
+      props<-c(props,p0+i*(prop_max-p0)/(df_aux))
+  
+    }
+    
+  }else{
   for(i in 1:(df_aux/2)){
 
     props<-c(props,p0+i*(prop_max-p0)/(df_aux/2))
@@ -42,7 +52,7 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
     props<-c(props,p0-i*(p0-prop_min)/(df_aux/2))
 
   }
-
+}
   props<- as.double(props)
 
   subset_min<- dataset[which(dataset[,class] == min),]
