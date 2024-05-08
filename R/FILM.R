@@ -60,22 +60,34 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
 
   subdatasets<-list(data.frame(dataset))
 
-  for(i in 1:(df_aux/2)){
-
-    n<- round(nrow(subset_min)/props[i])-nrow(subset_min)
-    subset_max_down<-subset_max[sample(1:nrow(subset_max),size = n,replace = F),]
-
-    subdatasets[[i+1]]<- (data.frame(rbind(subset_max_down,subset_min)))
-  }
-
-  for(i in ((df_aux/2)+1):df_aux){
-
-    n<- round(nrow(subset_max)/(1-props[i]))-nrow(subset_max)
-    subset_min_down<-subset_min[sample(1:nrow(subset_min),size = n,replace = F),]
-
-    subdatasets[[i+1]]<-(data.frame(rbind(subset_max,subset_min_down)))
-  }
-
+    if(p0 < 0.05){
+    
+    for(i in 1:(df_aux)){
+  
+      n<- round(nrow(subset_min)/props[i])-nrow(subset_min)
+      subset_max_down<-subset_max[sample(1:nrow(subset_max),size = n,replace = F),]
+  
+      subdatasets[[i+1]]<- (data.frame(rbind(subset_max_down,subset_min)))
+    }
+    
+  }else{
+    
+    for(i in 1:(df_aux/2)){
+  
+      n<- round(nrow(subset_min)/props[i])-nrow(subset_min)
+      subset_max_down<-subset_max[sample(1:nrow(subset_max),size = n,replace = F),]
+  
+      subdatasets[[i+1]]<- (data.frame(rbind(subset_max_down,subset_min)))
+    }
+  
+    for(i in ((df_aux/2)+1):df_aux){
+  
+      n<- round(nrow(subset_max)/(1-props[i]))-nrow(subset_max)
+      subset_min_down<-subset_min[sample(1:nrow(subset_min),size = n,replace = F),]
+  
+      subdatasets[[i+1]]<-(data.frame(rbind(subset_max,subset_min_down)))
+    }
+}
   props<-c(p0,props)
 
 
