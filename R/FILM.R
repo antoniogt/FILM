@@ -112,13 +112,11 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
     
     for(folds in 1:cv){
       
-      # Dataset de entrenamiento para este fold
       train_set <- rbind(
         subdatasets[[df]][which(subdatasets[[df]][,class] == max),][folds.max_list[[df]][[folds]],],
         subdatasets[[df]][which(subdatasets[[df]][,class] == min),][folds.min_list[[df]][[folds]],]
       )
       
-      # Separación 80/20 dentro del train_set
       train_index <- createDataPartition(train_set[, class], p = 0.8, list = FALSE)
       
       train_split <- train_set[train_index, ]
@@ -127,7 +125,6 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
       datasets_train[[length(datasets_train) + 1]] <- train_split
       datasets_val[[length(datasets_val) + 1]] <- val_split
       
-      # Dataset de test (lo que no está en el fold actual)
       test_set <- rbind(
         subdatasets[[df]][which(subdatasets[[df]][,class] == max),][-folds.max_list[[df]][[folds]],],
         subdatasets[[df]][which(subdatasets[[df]][,class] == min),][-folds.min_list[[df]][[folds]],]
@@ -135,7 +132,7 @@ FILM <- function(dataset, formula, df_aux=6, IAAs=c("IPIP","SMOTE","ROSE"),model
       
       datasets_test[[length(datasets_test) + 1]] <- test_set
     }
-  }
+
   
   for(i in 1:cv){
     
