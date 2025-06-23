@@ -44,7 +44,7 @@ levels(data$X6)<- c("one","two")
 
 ```
 
-Once the data is prepared, we can apply the FILM() functions to obtain (1) the values of the new UIC metric of each trained model, (2) the best model according to the UIC value that will be the least biased by the minority class proportion of the dataset, (3) the agreement and disagreement plots of the trained model metrics along the K-fold Cross Validation and (4) all the trained models on the original dataset in case we want them for other analyses. To set the parameters of the FILM function it is recommended to ?FILM and get more information about them and their possible values.
+Once the data is prepared, we can apply the FILM() functions to obtain (1) the values of the new BAIC metric of each trained model, (2) the best model according to the BAIC value that will be the least biased by the minority class proportion of the dataset, (3) the agreement and disagreement plots of the trained model metrics along the K-fold Cross Validation and (4) all the trained models on the original dataset in case we want them for other analyses. To set the parameters of the FILM function it is recommended to ?FILM and get more information about them and their possible values.
 
 ``` r
 # Apply FILM function
@@ -58,17 +58,17 @@ An IPIP model can also be trained using the IPIP() function. See ?IPIP for help 
 ipip <- IPIP(formula= X6 ~ ., dataset=data, model="ranger")
 ```
 
-To obtain the UIC metric for a particular technique one can make use of the function 'FILM(return.uic=F)' and 'UIC()', where return.uic=F creates auxiliary datasets to the original dataframe but without computing the UIC metric, in this case the list of metric values for all the experiments performed in the FILM methodology are returned in order to be able to perform other kind of analysis with them, while 'UIC()' operates on the values of the metrics and computes the value of the UIC metric. It is important to mention that in this case, to obtain the UIC metric without applying the full FILM methodology, only a combination of the 'IAAs' and 'models' parameter can be used.
+To obtain the BAIC metric for a particular technique one can make use of the function 'FILM(return.baic=F)' and 'BAIC()', where return.baic=F creates auxiliary datasets to the original dataframe but without computing the BAIC metric, in this case the list of metric values for all the experiments performed in the FILM methodology are returned in order to be able to perform other kind of analysis with them, while 'BAIC()' operates on the values of the metrics and computes the value of the BAIC metric. It is important to mention that in this case, to obtain the BAIC metric without applying the full FILM methodology, only a combination of the 'IAAs' and 'models' parameter can be used.
 
 ``` r
-results<- FILM(dataset = data,formula = X6 ~ .,IAAs=c("IPIP"),models=c("glm"),return.uic=F)
-uic<-UIC(metrics=results$metrics,metric_values=results$metric_values,props=results$props)
+results<- FILM(dataset = data,formula = X6 ~ .,IAAs=c("IPIP"),models=c("glm"),return.baic=F)
+baic<-BAIC(metrics=results$metrics,metric_values=results$metric_values,props=results$props)
 ```
 
-If we have a FILM object, to obtain the values of the UIC metric for all trained models using the combination of the 'IAAs' and 'models' parameter in the FILM() function we can also do:
+If we have a FILM object, to obtain the values of the BAIC metric for all trained models using the combination of the 'IAAs' and 'models' parameter in the FILM() function we can also do:
 
 ``` r
-film$uic_results
+film$baic_results
 ```
 
 To obtain the plots of agreements and disagreements we do
