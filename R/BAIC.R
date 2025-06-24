@@ -29,7 +29,8 @@ BAIC <- function (metrics, metric_values, props, fun = NULL) {
   else {
     weights <- fun(cor_pmin)
   }
-  value <- as.double(c(unlist(metric_values)[which(sub(".*\\.", "", names(unlist(metric_values))) %in% metrics & sub(".*_DF(\\d+).*", "\\1",names(unlist(metric_values))) == "1")])) %*% 
+  value <- as.double(c(unlist(metric_values)[which(sub(".*\\.", "", names(unlist(metric_values))) %in% metrics & sub(".*_DF(\\d+).*",
+                                                                                                                     "\\1",names(unlist(metric_values))) == "1")])) %*% 
     weights
   return(list(
     BAIC_value = value,
