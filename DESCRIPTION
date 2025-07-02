@@ -1,6 +1,6 @@
 Package: FILM
 Title: Framework for Imbalanced Learning Machines
-Version: 1.0.1
+Version: 1.0
 Authors@R: 
     person("Antonio", "Guillén-Teruel", , "a.guillenteruel@um.es", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-7118-5335"))
