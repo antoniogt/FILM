@@ -2,7 +2,7 @@
 
 export(FILM)
 export(IPIP)
-export(UIC)
+export(BAIC)
 export(f_gauss)
 export(metric_probs)
 export(metrics)
