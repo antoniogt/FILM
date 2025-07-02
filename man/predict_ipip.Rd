@@ -4,7 +4,7 @@
 \alias{predict_ipip}
 \title{Title}
 \usage{
-predict_ipip(ensemble, x, y, q = 0.5)
+predict_ipip(ensemble, x, y, q = 0.5, type = "class")
 }
 \arguments{
 \item{q}{}

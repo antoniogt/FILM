@@ -19,7 +19,7 @@ FILM(
     TRUE),
   metric_max = "KAPPA",
   num.trees = 200,
-  return.uic = T
+  return.baic = T
 )
 }
 \arguments{
@@ -35,7 +35,7 @@ FILM(
 
 \item{hyperparameters:}{Hiperparameters for 'ranger' method.}
 
-\item{metrics:}{Vector of metrics to get in order to calculate UIC metric. Possible values: 'ACCURACY' ,'SENS', 'SPEC', 'PPV', 'NPV', 'KAPPA' , 'BAL_ACC',  'F1', 'AUC', 'PR', 'MCC', 'GEOM'}
+\item{metrics:}{Vector of metrics to get in order to calculate BAIC metric. Possible values: 'ACCURACY' ,'SENS', 'SPEC', 'PPV', 'NPV', 'KAPPA' , 'BAL_ACC',  'F1', 'AUC', 'PR', 'MCC', 'GEOM'}
 
 \item{cv:}{Number K of folds for a K-Folds Cross Validation.}
 
@@ -50,7 +50,7 @@ FILM(
 \item{num.trees:}{Number of trees of the 'ranger' caret method.}
 }
 \value{
-UIC values, best model, all models
+BAIC values, best model, all models
 }
 \description{
 FILM function for doing the entire methodology and get the best model accordin

@@ -2,25 +2,17 @@
 % Please edit documentation in R/IPIP.R
 \name{IPIP}
 \alias{IPIP}
-\title{Title}
+\title{IPIP FUNCTION}
 \usage{
 IPIP(
   formula,
   dataset,
   val = NULL,
   pmin = 0.45,
-  bs = ceiling(log(0.01)/(log(1 - 1/nrow(dataset[which(dataset[, class] ==
-    levels(dataset[, class])[which.min(dataset[, class])]), ])) *
-    round(nrow(dataset[which(dataset[, class] == levels(dataset[,
-    class])[which.min(dataset[, class])]), ]) * 0.75))),
-  bE = ceiling(log(0.01)/(log(1 - 1/round(nrow(dataset[which(dataset[, class] ==
-    levels(dataset[, class])[which.min(dataset[, class])]), ]) * 0.75)) *
-    round(nrow(dataset[which(dataset[, class] == levels(dataset[,
-    class])[which.min(dataset[, class])]), ]) * 0.75))),
+  bs = NULL,
+  bE = NULL,
   model = "glm",
-  mt = function(n) {
-     ceiling((bE - n)/3)
- },
+  mt = NULL,
   tC = trainControl(summaryFunction = FILM::metrics, classProbs = TRUE),
   hiperparametros = NULL,
   metric_max = "KAPPA",
@@ -31,5 +23,5 @@ IPIP(
 \item{num.trees}{}
 }
 \description{
-Title
+IPIP FUNCTION
 }
