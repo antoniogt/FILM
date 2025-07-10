@@ -1,3 +1,11 @@
+#' Integrated agreement/disagreement plot
+#'
+#' @description Plot or compute agreement and disagreement between models
+#' @param metrics: Metrics from film$all_metrics
+#' @param model: the model (RF/RLOG)
+#' @param legend_pos: Legend position (by default "bottom") 
+#' @return Agree and Disagree plot
+#' @export
 integrated_agree_disagree <- function(metrics,
                                       model          = c("RF"),
                                       legend_pos     = "bottom") {
