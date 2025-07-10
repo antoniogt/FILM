@@ -74,7 +74,7 @@ film$baic_results
 To obtain the plots of agreements and disagreements we do
 
 ``` r
-plot(film$agreementDisagreement)
+plot(integrated_agree_disagree(film$all_metrics))
 
 ```
 
