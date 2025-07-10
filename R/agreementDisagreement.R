@@ -1,7 +1,7 @@
 integrated_agree_disagree <- function(metrics,
                                       model          = c("RF"),
                                       legend_pos     = "bottom") {
-
+  
   nms         <- names(metrics)
   algorithms     = unique(sapply(strsplit(nms, "_"), `[`, 1))
   fold_number <- sapply(strsplit(names(metrics), "_"), function(x) {
@@ -12,8 +12,8 @@ integrated_agree_disagree <- function(metrics,
   listas_por_alg <- split(nms, prefijos)
   
   ## Filtrar por el modelo actual (RF / RLOG)  ───────────────────────────────────
-  keep_alg <- intersect(model, unique(unique(sub("^[^_]+_([^_]+)_.*", "\\1", nms))))
-  if (length(keep_alg) == 0)
+  keep_alg <- intersect(algorithms, names(listas_por_alg))
+  if (length(intersect(model, unique(unique(sub("^[^_]+_([^_]+)_.*", "\\1", nms))))) == 0)
     stop("No metrics found for the selected model/s")
   
   listas_modelo <- lapply(listas_por_alg[keep_alg], \(vec)
@@ -45,7 +45,7 @@ integrated_agree_disagree <- function(metrics,
     })
     
     for (j in 1:(p-1)) for (k in (j+1):p) for (r in seq_len(folds_per_df)) {
-
+      
       max_j <- vapply(dfs_df, \(d) d[r, j], numeric(1))
       max_k <- vapply(dfs_df, \(d) d[r, k], numeric(1))
       idx_j <- which.max(max_j)
